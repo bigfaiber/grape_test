@@ -1,3 +1,4 @@
+Sequel::Model.plugin :json_serializer
 class Booking < Sequel::Model
   many_to_one :movie
 
