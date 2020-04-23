@@ -3,7 +3,6 @@ module BookingsHelper
   attr_accessor :bookings, :datetime
   def movie_available_on_date? movie_id, date
     @datetime = DateTime.parse(date)
-    binding.pry
     Movie[movie_id].dows.include? Dow.find(dow: @datetime.wday)
   end
 

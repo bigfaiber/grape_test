@@ -25,6 +25,19 @@ task :console do
   exec "pry -r./config/application"
 end
 
+desc "setup test database"
+task :prep_test do
+  puts "Deleting old test db... if it exits"
+  File.delete 'db/cinema_test.db' if File.exists? 'db/cinema_test.db'
+  puts "Creating test db... "
+  $db = Sequel.connect('sqlite://db/cinema_test.db')
+  p "running migrations"
+  system "sequel -m db/migrate/ sqlite://db/cinema_test.db"
+  puts "Seeding database..."
+  ruby './db/seed.rb'
+  puts "Done"
+end
+
 desc "Run the specs"
 task :spec do
   RSpec::Core::RakeTask.new(:spec)

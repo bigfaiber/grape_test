@@ -37,13 +37,12 @@ module MyApi
       desc "A user can book tickets for a movie"
       post '/book_movie' do
         if !movie_available_on_date? params[:movie_id], params[:date]
-          {message: "Movie not available for that day of week" }
+          {message: "Movie not available for that day of week", status: 400 }
         elsif !can_book? params[:movie_id], params[:date], params[:quantity]
-          {message: "We're sorry, you can take up to #{bookings_left params[:movie_id], params[:date]} tickets"}
+          {message: "We're sorry, you can take up to #{bookings_left params[:movie_id], params[:date]} tickets", status: 400}
         else
           b = Booking.new
           b.date = DateTime.parse(params[:date]).utc.to_date
-          p b.date
           b.client_id = params[:client_id]
           b.movie_id = params[:movie_id]
           b.quantity = params[:quantity]
