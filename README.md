@@ -1,23 +1,23 @@
-How to run:
+-How to run:
 
 
-1- rake db:create 
+1. rake db:create 
 
-2- rake db:migrate
+2. rake db:migrate
 
-3- rake db:seed
+3. rake db:seed
 
-Testing:
-
-
-1- rake prep_test
-
-2- rake spec
-
-Endpoints:
+-Testing:
 
 
-1) create a movie:
+1. rake prep_test
+
+2. rake spec
+
+-Endpoints:
+
+
+1. create a movie:
 
 
     url= http://localhost:9292/v1/movies/create_movie
@@ -25,7 +25,7 @@ Endpoints:
     params: (name: String, description: String, img_url: String)
 
 
-2) movie list by a given day of week:
+2. movie list by a given day of week:
 
 
     url= http://localhost:9292/v1/movies/by_day/:dow
@@ -33,7 +33,7 @@ Endpoints:
     dow: Integer is like wday in ruby (Sunday is 0)
 
 
-3) book a movie show for a given date:
+3. book a movie show for a given date:
 
 
     url= http://localhost:9292/v1/bookings/book_movie
@@ -41,7 +41,7 @@ Endpoints:
     params: (date: "yyyy-mm-dd", client_id: Integer, movie_id: Integer, quantity: Integer)
 
 
-4) bookings list by given date range:
+4. bookings list by given date range:
 
 
     url= http://localhost:9292/v1/bookings/date_range
