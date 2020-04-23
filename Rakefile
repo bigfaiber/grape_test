@@ -16,9 +16,10 @@ end
 namespace :db do
 
   desc "Creates the database"
-  task :create do
-    puts "Creating database..."
-    system("createdb cinemadb")
+  task :migrate do
+    puts "Migrating database..."
+    system "sequel -m db/migrate/ sqlite://db/cinema.db"
+    puts "database #{$db} migrated"
   end
 
   task :reset do
