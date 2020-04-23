@@ -1,13 +1,29 @@
 module BookingsHelper
   MAX_BOOKINGS = 10
-  def can_book? movie_id, date, quantity
-    Booking.where(date: ((DateTime.parse(date) - DateTime.now.offset).beginning_of_day..(DateTime.parse(date) - DateTime.now.offset).end_of_day),
-                  movie_id: movie_id).sum(:quantity) + quantity > MAX_BOOKINGS
-    #TODO retornar true o false computando parametro quantity de entrada vs 10 spots abiertos, cambiar nombre al metodo, can_book?
+  attr_accessor :bookings, :datetime
+  def movie_available_on_date? movie_id, date
+    @datetime = DateTime.parse(date)
+    binding.pry
+    Movie[movie_id].dows.include? Dow.find(dow: @datetime.wday)
   end
 
+  def can_book? movie_id, date, quantity
+    @bookings = Booking.where(date: (@datetime.beginning_of_day..@datetime.end_of_day),
+                              movie_id: movie_id).sum(:quantity)
+    if bookings.nil? && quantity
+      quantity <= MAX_BOOKINGS
+    else
+      bookings + quantity <= MAX_BOOKINGS
+    end
+  end
+
+
   def bookings_left movie_id, date
-    MAX_BOOKINGS - Booking.where(date: ((DateTime.parse(date) - DateTime.now.offset).beginning_of_day..(DateTime.parse(date) - DateTime.now.offset).end_of_day),
-                  movie_id: movie_id).sum(:quantity)
+    if @bookings.nil?
+      return MAX_BOOKINGS
+    else
+      MAX_BOOKINGS - Booking.where(date: (@datetime.beginning_of_day..@datetime.end_of_day),
+                                   movie_id: movie_id).sum(:quantity)
+    end
   end
 end
