@@ -3,7 +3,9 @@ require 'capybara/rspec'
 require_relative '../../app/api/version1'
 require_relative '../spec_helper'
 
-$db = SQLite3::Database.open 'db/cinema_test.db'
+
+$dbtest = Sequel.connect('sqlite://db/cinema.db')
+$dbtest = SQLite3::Database.open 'db/cinema_test.db'
 
 describe MyApi::CinemaApiV1, :type => :feature do
   include Rack::Test::Methods
