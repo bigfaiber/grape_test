@@ -1,15 +1,20 @@
 require 'rspec/core/rake_task'
-require_relative 'config/application.rb'
-
+require 'sequel'
 namespace :db do
 
   desc "Creates the database"
-  task :migrate do
-    puts "Migrating database..."
-    system "sequel -m db/migrate/ sqlite://db/cinema.db"
-    puts "database #{$db} migrated"
+  task :create do
+    $db = Sequel.connect('sqlite://db/cinema.db')
+    p "database #{$db} created"
   end
 
+  desc "Run migrations"
+  task :migrate do
+    puts "Running migrations..."
+    system "sequel -m db/migrate/ sqlite://db/cinema.db"
+    puts "Migrations done"
+  end
+  desc "Run seed"
   task :seed do
     ruby './db/seed.rb'
   end
