@@ -2,7 +2,6 @@ require 'grape'
 require 'json'
 require 'pg'
 require 'sequel'
-require 'sqlite3'
 require 'pry'
 # $db = Sequel.connect('sqlite://db/cinema.db')
 DB = Sequel.connect(adapter: :postgres, database: 'cinema_db', host: 'localhost')
