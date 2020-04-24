@@ -4,14 +4,14 @@ namespace :db do
 
   desc "Creates the database"
   task :create do
-    DB = Sequel.connect(ENV[DATABASE_URL])
+    DB = Sequel.connect(ENV['DATABASE_URL'])
     p "database #{$db} created"
   end
 
   desc "Run migrations"
   task :migrate do
     puts "Running migrations..."
-    system "sequel -m db/migrate/ #{ENV[DATABASE_URL]}"
+    system "sequel -m db/migrate/ #{ENV['DATABASE_URL']}"
     puts "Migrations done"
   end
   desc "Run seed"
