@@ -4,9 +4,6 @@ gem "grape"
 gem "sequel"
 gem "grape-raketasks"
 gem "pry"
-group :development do
-  gem "sqlite3"
-end
 
 group :test do
   gem "rspec", require:false
