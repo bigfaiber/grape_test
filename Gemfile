@@ -5,6 +5,9 @@ gem "sequel"
 gem "grape-raketasks"
 gem "pry"
 
+group :development do
+  gem "sqlite3"
+end
 group :test do
   gem "rspec", require:false
   gem 'capybara'
@@ -12,6 +15,5 @@ group :test do
 end
 
 group :production do
-  # gem "pg"
-  gem "sqlite3"
+  gem "pg"
 end
