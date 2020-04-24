@@ -1,4 +1,4 @@
-require 'rspec/core/rake_task'
+
 require 'sequel'
 namespace :db do
 
@@ -38,7 +38,7 @@ task :prep_test do
   puts "Done"
 end
 
-desc "Run the specs"
-task :spec do
-  RSpec::Core::RakeTask.new(:spec)
-end
+# desc "Run the specs"
+# task :spec do
+#   RSpec::Core::RakeTask.new(:spec)
+# end
