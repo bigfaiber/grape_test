@@ -1,11 +1,13 @@
-
+require 'dotenv/load'
 require 'sequel'
+require 'pry'
+require 'rspec/core/rake_task'
 namespace :db do
 
   desc "Creates the database"
   task :create do
     DB = Sequel.connect(ENV['DATABASE_URL'])
-    p "database #{$db} created"
+    p "database created"
   end
 
   desc "Run migrations"
@@ -30,7 +32,7 @@ task :prep_test do
   puts "Deleting old test db... if it exits"
   File.delete 'db/cinema_test.db' if File.exists? 'db/cinema_test.db'
   puts "Creating test db... "
-  $db = Sequel.connect('sqlite://db/cinema_test.db')
+  DB = Sequel.connect('sqlite://db/cinema_test.db')
   p "running migrations"
   system "sequel -m db/migrate/ sqlite://db/cinema_test.db"
   puts "Seeding database..."
@@ -38,7 +40,7 @@ task :prep_test do
   puts "Done"
 end
 
-# desc "Run the specs"
-# task :spec do
-#   RSpec::Core::RakeTask.new(:spec)
-# end
+desc "Run the specs"
+task :spec do
+  RSpec::Core::RakeTask.new(:spec)
+end
