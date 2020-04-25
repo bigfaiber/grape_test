@@ -31,7 +31,7 @@ module MyApi
       params do
         requires :movie_id, type: {value: Integer, message: "type is invalid, must be an integer"}
         requires :quantity, type: {value: Integer, message: "type is invalid, must be an integer"}
-        requires :date, type: String, values: ->(v) {DateTime.parse(v).utc >= DateTime.now.utc.beginning_of_day}
+        requires :date, type: String, values: ->(v) {DateTime.parse(v).to_date >= DateTime.now.beginning_of_day.to_date}
         requires :client_id, type: String
       end
       desc "A user can book tickets for a movie"
